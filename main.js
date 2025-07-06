@@ -45,6 +45,7 @@ loader.load('character1.glb', function ( gltf ) {
 );
 
 const KP = {};
+let movingDirection = null;
 
 window.addEventListener('keydown', (event) => {
   KP[event.code] = true;
@@ -72,6 +73,32 @@ function animate() {
       if (KP['ArrowDown']) {
         model.position.x -= speed; 
       }
+
+      if (KP['KeyK']) {
+      if (KP['ArrowLeft']) movingDirection = 'left';
+      if (KP['ArrowRight']) movingDirection = 'right';
+      if (KP['ArrowUp']) movingDirection = 'up';
+      if (KP['ArrowDown']) movingDirection = 'down';
+      }
+    
+      if (movingDirection) {
+        if (movingDirection === 'left') {
+              model.position.z -= speed;
+        } 
+        if (movingDirection === 'right') {
+              model.position.z += speed;
+        } 
+        if (movingDirection === 'up') {
+              model.position.x += speed;
+        } 
+        if (movingDirection === 'down') {
+              model.position.x -= speed;
+        }
+      }
+
+       if (KP['KeyL']) {
+            movingDirection = null;
+    }
   }
 
   controls.update();
